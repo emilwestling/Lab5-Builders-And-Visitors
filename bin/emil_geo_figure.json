@@ -1,0 +1,43 @@
+//
+//       C(2,3) ------ D(8,3)
+//        /             \
+//       /               \
+//      /                 \
+//    A(0,0) ---------- B(10, 0)
+//
+{
+    "Figure" :
+    {
+      "Description" : "A Trapeze with four points and four edges.",
+      "Points" :
+        [
+            {
+                "name" : "A",
+                "x" : 0,
+                "y" : 0
+            },
+            {
+                "name" : "B",
+                "x" : 10,
+                "y" : 0
+            },
+            {
+                "name" : "C",
+                "x" : 2,
+                "y" : 3
+            }
+            {
+                "name" : "D",
+                "x" : 8,
+                "y" : 3
+            }
+        ],
+        
+      "Segments" :
+        [
+            {"A" : ["B", "C"]},
+            {"B" : ["D"]},
+            {"C" : ["D"]}
+        ]
+    }
+}

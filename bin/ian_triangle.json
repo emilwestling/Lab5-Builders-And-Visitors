@@ -1,0 +1,36 @@
+//
+//    C(1,2) _
+//    /             _
+//   /                   _
+//  A(0,0) ---------- B(9, 0)
+//
+{
+  "Figure" :
+  {
+   "Description" : "A triangle with three points and three edges.",
+   "Points" :
+    [
+      {
+        "name" : "A",
+        "x" : 0,
+        "y" : 0
+      },
+      {
+        "name" : "B",
+        "x" : 9,
+        "y" : 0
+      },
+      {
+        "name" : "C",
+        "x" : 1,
+        "y" : 2
+      }
+    ],
+   "Segments" :
+    [
+      {"A" : ["B", "C"]},
+      {"B" : [“A”, “C”]},
+      {"C" : [“A”, “B”]}
+    ]
+  }
+}
