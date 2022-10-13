@@ -1,6 +1,8 @@
 package input.builder;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 import input.components.*;
 import input.components.point.*;
@@ -24,7 +26,7 @@ public class DefaultBuilder
         return null;
     }
     
-    public SegmentNodeDatabase buildSegmentNodeDatabase()
+    public SegmentNodeDatabase buildSegmentNodeDatabase(LinkedHashMap<PointNode, Set<PointNode>> map)
     {
         return null;
     }

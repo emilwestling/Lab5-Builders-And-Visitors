@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import input.builder.GeometryBuilder;
 import input.components.*;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
@@ -57,7 +58,7 @@ public class JSONParser
 			// Construct the figure by passing each of the above 
 			// items: the description, the PointNodeDatabase, and the SegmentNodeDatabase 
 			// into the FigureNode constructor.
-			_astRoot = new FigureNode(description, pointDB, segmentDB);
+			_astRoot = new GeometryBuilder().buildFigureNode(description, pointDB, segmentDB);
 		} catch (JSONException je) {
 			this.error("JSON file empty");
 		}
