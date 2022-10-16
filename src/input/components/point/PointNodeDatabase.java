@@ -12,7 +12,10 @@ import utilities.math.MathUtilities;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-public class PointNodeDatabase {
+import input.components.ComponentNode;
+import input.visitor.ComponentNodeVisitor;
+
+public class PointNodeDatabase implements ComponentNode {
 	
 	/**
 	 * The set that underlies the database.
@@ -153,8 +156,9 @@ public class PointNodeDatabase {
 		}	
 		return null;
 	}
-	
-public StringBuilder unparse( StringBuilder sb, int level) {
+
+	@Override
+	public StringBuilder unparse( StringBuilder sb, int level) {
 		
 		sb.append(StringUtilities.indent(level) + "Points");
 		sb.append("\n" + "{");
@@ -165,5 +169,14 @@ public StringBuilder unparse( StringBuilder sb, int level) {
 		}
 		sb.append("}" + "\n");
 		return sb;
+	}
+
+
+
+
+	@Override
+	public Object accept(ComponentNodeVisitor visitor, Object o) {
+		// TODO Auto-generated method stub
+		return visitor.visitPointNodeDatabase(this, o);
 	}
 }

@@ -21,15 +21,28 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
 		JSONObject figure = new JSONObject();
 		JSONObject geometryJSON = new JSONObject();
 		
+		// Get the SegmentNodeDatabase from the FigureNode
+		SegmentNodeDatabase segmentDB = node.getSegments();
 		
+		// Visit the SegmentNodeDatabase and get an array of segments
+		JSONArray segmentsArray = (JSONArray) segmentDB.accept(this, null);
 		
+		// Add the segments to the figure 
+		figure.put("Segments", segmentsArray);
 		
+		// Get the PointNodeDatabase from the FigureNode
 		PointNodeDatabase pointDB = ((FigureNode) o).getPointsDatabase();
-		JSONArray pointsArray = (JSONArray) visitPointNodeDatabase(pointDB, figure);
+		
+		// Visit the PointNodeDatabase and get an array of points 
+		JSONArray pointsArray = (JSONArray) pointDB.accept(this, pointDB);
+		
+		// Add the points array to the figure
 		figure.put("Points", pointsArray);
 		
+		// Add the description to the figure
 		figure.put("Description", node.getDescription());
 		
+		// Add the entire figure to the geometryJSON object and return 
 		geometryJSON.put("Figure", figure);
 		return geometryJSON;
 	}
@@ -66,21 +79,19 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
 			// Loop through all of the segments that have the same first point
 			while (currSegment.equals(keyPoint)) {
 				
-				
-				
-				// Put point two from the currentSegment into the array
-				segArray.put(next.getPoint2().getName());
-				
+				// Visit segment 
+				segArray = (JSONArray) next.accept(this, segArray);
+					
 				// Update currPoint 
 				next = itr.next();
 				
-				// Add the array and the first point to the segment JSONObject as a key value pair
-				// only if the next segment has a different first point
+				// Check to see if the next segment has a different first point than the one when just visited
+				// If so then put the currSegment's name in as the key and the segArray as the value to the segments object
 				if (!next.getPoint1().equals(currSegment)) segment.put(currSegment.getName(), segArray);
 				
 			}
 			
-			//put the segment into the segments array
+			//put the segment we just completed into the segments array
 			segments.put(segment);
 			
 			// Get the next segment
@@ -96,17 +107,13 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
 	public Object visitSegmentNode(SegmentNode node, Object o) {
 		// TODO Auto-generated method stub
 		
-		
-		JSONObject segment = new JSONObject(); 
-		
-		// Get the point names from the SegmentNode 
-		String point1 = node.getPoint1().getName();
+		// Get the name of point two from the SegmentNode 
 		String point2 = node.getPoint2().getName();
+		
 		// Add the second point to the array
+		((JSONArray) o).put(point2);
 		
-		// Put both the first point and the array into the segment Object
-		
-		return segment;
+		return o;
 	}
 
 	@Override
@@ -129,8 +136,8 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
 		Iterator<PointNode> itr = points.iterator();
 		while(itr.hasNext()) {
 			PointNode next = itr.next();
-			JSONObject point = (JSONObject) visitPointNode(next, null);
-			pointsArray.put(point);
+			JSONObject point = (JSONObject) next.accept(this, null);
+			pointsArray.put(point); 
 		}
 		return pointsArray;
 	}

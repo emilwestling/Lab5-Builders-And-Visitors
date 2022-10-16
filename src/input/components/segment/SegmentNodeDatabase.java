@@ -22,10 +22,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import input.components.ComponentNode;
 import input.components.point.PointNode;
+import input.visitor.ComponentNodeVisitor;
 import utilities.io.StringUtilities;
 
-public class SegmentNodeDatabase {
+public class SegmentNodeDatabase implements ComponentNode{
 
 	protected LinkedHashMap<PointNode, Set<PointNode>> _adjLists;
 
@@ -167,5 +169,11 @@ public class SegmentNodeDatabase {
 		}
 		sb.append(StringUtilities.indent(level) + "} \n");
 		return sb;
+	}
+
+
+	@Override
+	public Object accept(ComponentNodeVisitor visitor, Object o) {
+		return visitor.visitSegmentDatabaseNode(this, o);
 	}
 }

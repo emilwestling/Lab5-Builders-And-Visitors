@@ -98,4 +98,18 @@ public class PointNode implements ComponentNode
     {
 		return _name + ": (" + _x + ", " + _y + ")";
 	}
+
+
+	@Override
+	public Object accept(ComponentNodeVisitor visitor, Object o) {
+		// TODO Auto-generated method stub
+		return visitor.visitPointNode(this, o);
+		
+	}
+
+	@Override
+	public void unparse(StringBuilder sb, int level) {
+		// TODO Auto-generated method stub
+		
+	}
 }
