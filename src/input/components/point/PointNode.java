@@ -1,11 +1,13 @@
 package input.components.point;
 
+import input.components.ComponentNode;
+import input.visitor.ComponentNodeVisitor;
 import utilities.math.MathUtilities;
 
 /**
  * A 2D Point (x, y).
  */
-public class PointNode
+public class PointNode implements ComponentNode
 {
 	/**
 	 * A constant string to be used to create a PointNode
