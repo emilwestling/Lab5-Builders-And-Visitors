@@ -119,6 +119,14 @@ public class PointNodeDatabase {
 	}
 	
 	/**
+	 * Obtains a LinkedHashSet of all the points in the database
+	 * @return
+	 */
+	public LinkedHashSet<PointNode> getPoints() {
+		return _set;
+	}
+	
+	/**
 	 * Gets the given point.
 	 * @param point - the point to get
 	 * @return the point
