@@ -28,6 +28,7 @@ public class JSONParser
 	public JSONParser()
 	{
 		_astRoot = null;
+		_builder = new GeometryBuilder();
 	}
 
 	private void error(String message)

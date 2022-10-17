@@ -43,11 +43,7 @@ public class SegmentNode implements ComponentNode
 		
 		
 	}
-	@Override
-	public void unparse(StringBuilder sb, int level) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	@Override
 	public Object accept(ComponentNodeVisitor visitor, Object o) {
 		// TODO Auto-generated method stub

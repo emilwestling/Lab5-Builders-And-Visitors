@@ -31,30 +31,43 @@ public class FigureNode implements ComponentNode
 		_segments = segments;
 	}
 
+	
 	@Override
-	public void unparse(StringBuilder sb, int level)
+	public Object unparse(StringBuilder sb, int level)
 	{
+		//unparses all of JSON doc
 		
 		sb.append(StringUtilities.indent(level) + "{ \n");
 		sb.append(StringUtilities.indent(level) + "figure: \n");
+		
 		sb = unparseD(sb, level + 1);
+		
 		sb = _points.unparse(sb, level + 1);
 		sb.append("\n");
+		
 		sb = _segments.unparse(sb, level + 1);
+		
 		sb.append(StringUtilities.indent(level) + "}");
 		
-		
+		return sb;
   }
 	public StringBuilder unparseD(StringBuilder sb, int level) {
+		//unparses discription
+		
 		sb.append(StringUtilities.indent(level));
-		sb.append(_description);
-		System.out.println(sb.toString());
+		sb.append("Discription: " + _description);
 		return sb;
 	}
 	@Override
 	public Object accept(ComponentNodeVisitor visitor, Object o) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public Object accept(ComponentNodeVisitor visitor, Object o) {
+		Object x = visitor.visitFigureNode(this, o);
+		return x;
 	}
 	
 	
