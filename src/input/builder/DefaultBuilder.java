@@ -26,7 +26,7 @@ public class DefaultBuilder
         return null;
     }
     
-    public SegmentNodeDatabase buildSegmentNodeDatabase(LinkedHashMap<PointNode, Set<PointNode>> map)
+    public SegmentNodeDatabase buildSegmentNodeDatabase()
     {
         return null;
     }
@@ -41,7 +41,7 @@ public class DefaultBuilder
         return null;
     }
     
-    public PointNodeDatabase buildPointDatabaseNode(List<PointNode> points)
+    public PointNodeDatabase buildPointNodeDatabase(List<PointNode> points)
     {
         return null;
     }
