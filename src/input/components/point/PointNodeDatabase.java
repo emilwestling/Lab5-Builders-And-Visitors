@@ -170,7 +170,10 @@ public class PointNodeDatabase implements ComponentNode {
 		sb.append("}" + "\n");
 		return sb;
 	}
-
+	
+	public LinkedHashSet<PointNode> getSet() {
+		return _set;
+	}
 
 
 

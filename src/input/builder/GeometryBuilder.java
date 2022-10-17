@@ -11,6 +11,10 @@ import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNode;
 import input.components.segment.SegmentNodeDatabase;
 
+/*
+ * Class that builds the FigureNode object. Inherits from DefaultBuilder
+ * 
+ */
 public class GeometryBuilder extends DefaultBuilder {
 
 	@Override
@@ -20,9 +24,9 @@ public class GeometryBuilder extends DefaultBuilder {
 	}
 	
 	@Override
-	public SegmentNodeDatabase buildSegmentNodeDatabase(LinkedHashMap<PointNode, Set<PointNode>> map)
+	public SegmentNodeDatabase buildSegmentNodeDatabase()
     {
-        return new SegmentNodeDatabase(map);
+        return new SegmentNodeDatabase();
     }
     
 	@Override
@@ -32,7 +36,7 @@ public class GeometryBuilder extends DefaultBuilder {
     }
     
 	@Override
-    public PointNodeDatabase buildPointDatabaseNode(List<PointNode> points)
+    public PointNodeDatabase buildPointNodeDatabase(List<PointNode> points)
     {
         return new PointNodeDatabase(points);
     }
@@ -42,5 +46,4 @@ public class GeometryBuilder extends DefaultBuilder {
     {
         return new PointNode(name, x, y);
     }
-	
 }

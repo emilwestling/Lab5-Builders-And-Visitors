@@ -58,6 +58,11 @@ public class FigureNode implements ComponentNode
 		sb.append("Discription: " + _description);
 		return sb;
 	}
+	@Override
+	public Object accept(ComponentNodeVisitor visitor, Object o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	@Override
 	public Object accept(ComponentNodeVisitor visitor, Object o) {

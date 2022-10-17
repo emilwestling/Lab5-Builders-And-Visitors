@@ -170,7 +170,10 @@ public class SegmentNodeDatabase implements ComponentNode{
 		sb.append(StringUtilities.indent(level) + "} \n");
 		return sb;
 	}
-
+	
+	public LinkedHashMap<PointNode, Set<PointNode>> getAdjLists(){
+		return _adjLists;
+	}
 
 	@Override
 	public Object accept(ComponentNodeVisitor visitor, Object o) {

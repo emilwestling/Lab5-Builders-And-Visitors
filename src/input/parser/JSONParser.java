@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import input.builder.DefaultBuilder;
 import input.builder.GeometryBuilder;
 import input.components.*;
 import input.components.point.PointNode;
@@ -22,6 +23,7 @@ import input.exception.ParseException;
 public class JSONParser
 {
 	protected ComponentNode  _astRoot;
+	protected DefaultBuilder _builder;
 
 	public JSONParser()
 	{
@@ -46,67 +48,63 @@ public class JSONParser
 			JSONTokener tokenizer = new JSONTokener(str);
 			JSONObject  JSONroot = (JSONObject)tokenizer.nextValue();
 			JSONObject object = (JSONObject) JSONroot.get("Figure");
-			// Set the Description by getting it from the JSON file
+			
+			// Set the Description by getting it from the JSON file			
 			String description = object.getString("Description");
 		
-			// Construct the PointNodeDatabase from the "Points" values in the JSON file
-			PointNodeDatabase pointDB = getPoints(object);
 			
 			// Construct the PointNodeDatabase from the "Points" values in the JSON file
-			SegmentNodeDatabase segmentDB = getSegments(object, pointDB);
+			PointNodeDatabase pointDB = parsePoints(object);
 			
-			// Construct the figure by passing each of the above 
-			// items: the description, the PointNodeDatabase, and the SegmentNodeDatabase 
-			// into the FigureNode constructor.
+			// Construct the PointNodeDatabase from the "Points" values in the JSON file
+			SegmentNodeDatabase segmentDB = parseSegments(object, pointDB);
+			
+			// Construct the figure by creating a GeometryBuilder object and creating a FigureNode object
 			_astRoot = new GeometryBuilder().buildFigureNode(description, pointDB, segmentDB);
 		} catch (JSONException je) {
 			this.error("JSON file empty");
 		}
-		
-		
 		return _astRoot;
-
-        // TODO: Build the whole AST, check for return class object, and return the root
 	}
-    // TODO: implement supporting functionality
 	
 	/**
-	 * 
-	 * @param obj
+	 * parses the points one by one and 
+	 * @param obj -- JSONObject
 	 * @return PointNodeDatabase
 	 */
-	private PointNodeDatabase getPoints(JSONObject obj) {
+	private PointNodeDatabase parsePoints(JSONObject obj) {
 		JSONArray points = obj.getJSONArray("Points");
-		PointNodeDatabase pointDB = new PointNodeDatabase();
+		List<PointNode> list = new ArrayList<PointNode>();
 		
-		
+		// loop through the points and parse them out one by one
 		for(Object o : points) {
 			String name = ((JSONObject) o).getString("name");
 			Double x = ((JSONObject) o).getDouble("x");
 			Double y = ((JSONObject) o).getDouble("y");
-			PointNode node = new PointNode(name, x, y);
-			
-			pointDB.put(node);
+			list.add(_builder.buildPointNode(name, x, y));
 		}
-		return pointDB;
+		return _builder.buildPointNodeDatabase(list);
 	}
 	
-	private SegmentNodeDatabase getSegments(JSONObject obj, PointNodeDatabase pointDB) {
+	/**
+	 * parses all segments and creates a segment
+	 * 
+	 * @param obj -- JSONObject
+	 * @param pointDB -- PointNodeDatabase
+	 * @return segmentDB -- SegmentNodeDatabase
+	 */
+	private SegmentNodeDatabase parseSegments(JSONObject obj, PointNodeDatabase pointDB) {
 		// Get the array of segments that is assigned to the "Segments" key in JSON
 		JSONArray segmentsArray = obj.getJSONArray("Segments");
-		
 		// Create an empty SegmentNodeDatabase
-		SegmentNodeDatabase segmentDB = new SegmentNodeDatabase();
+		SegmentNodeDatabase segmentDB = _builder.buildSegmentNodeDatabase();
 		
 		// Loop through the segments in the array
 		for(Object o : segmentsArray) {
-			
 			// For each segment in the array extract the key
 			Iterator<String> keyArray = ((JSONObject) o).keys();
 			String key = keyArray.next();
 			PointNode keyPoint = pointDB.getPoint(key);
-			
-			// Get the point corresponding with that key from the PointNodeDatabase
 			
 			// Get the array of values assigned to that key
 			JSONArray points = ((JSONObject)o).getJSONArray(key);
@@ -116,12 +114,10 @@ public class JSONParser
 				String pointStr = str.toString();
 				PointNode point = pointDB.getPoint(pointStr);
 				// Add that point and the key to a the SegmentNodeDatabase
-				segmentDB.addUndirectedEdge(keyPoint, point);
+				_builder.addSegmentToDatabase(segmentDB, point, keyPoint);
 			}
 		}
-		
 		return segmentDB;
 	}
-	
 }
 
