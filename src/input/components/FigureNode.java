@@ -5,6 +5,7 @@ import java.util.Set;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
+import input.visitor.ComponentNodeVisitor;
 import utilities.io.StringUtilities;
 
 /**
@@ -49,6 +50,11 @@ public class FigureNode implements ComponentNode
 		sb.append(_description);
 		System.out.println(sb.toString());
 		return sb;
+	}
+	@Override
+	public Object accept(ComponentNodeVisitor visitor, Object o) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
