@@ -110,11 +110,9 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		sb.append("\n" + "{");
 		
 		for(PointNode p: node.getSet()) {
-			sb.append(StringUtilities.indent(level + 1));
-			sb.append("Point(" + p.getName() + ")" + "(" + String.valueOf(p.getX()) + ")"
-			+ "(" + String.valueOf(p.getY()) + ") \n");
+			AbstractMap.SimpleEntry<StringBuilder, Integer> newPair = new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, level);
+			visitPointNode(p, (Object)newPair);
 		}
-		
 		sb.append("}" + "\n");
 		
 		return sb;
@@ -123,8 +121,13 @@ public class UnparseVisitor implements ComponentNodeVisitor
 	@Override
 	public Object visitPointNode(PointNode node, Object o)
 	{
-        // will not be called in this implementation
-        
-        return null;
+			AbstractMap.SimpleEntry<StringBuilder, Integer> pair = (AbstractMap.SimpleEntry<StringBuilder, Integer>)(o);
+			StringBuilder sb = pair.getKey();
+			int level = pair.getValue();
+			
+			sb.append(StringUtilities.indent(level + 1));
+			sb.append("Point(" + node.getName() + ")" + "(" + String.valueOf(p.getX()) + ")"
+			+ "(" + String.valueOf(node.getY()) + ") \n");
+		
 	}
 }
