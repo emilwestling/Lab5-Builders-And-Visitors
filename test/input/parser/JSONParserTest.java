@@ -15,6 +15,7 @@ import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNode;
 import input.components.segment.SegmentNodeDatabase;
 import input.exception.ParseException;
+import input.visitor.ToJSONvisitor;
 
 class JSONParserTest
 {
@@ -44,7 +45,6 @@ class JSONParserTest
 		
 		StringBuilder sb = new StringBuilder();
 		node.unparse(sb, 0);
-		System.out.println(sb.toString());
 	}
 	
 	@Test
@@ -55,6 +55,11 @@ class JSONParserTest
         PointNodeDatabase pointDB = figNode.getPointsDatabase();
         SegmentNodeDatabase segmentDB = figNode.getSegments();
         String description = figNode.getDescription();
+        
+        ToJSONvisitor visitor = new ToJSONvisitor();
+        
+        JSONObject collinearObj = (JSONObject) figNode.accept(visitor, null);
+        System.out.print(collinearObj.toString(0));
 
         // checking so that the description matches
         assertEquals(description, "A seqeunce of collinear line segments mimicking one line with 6 points.");

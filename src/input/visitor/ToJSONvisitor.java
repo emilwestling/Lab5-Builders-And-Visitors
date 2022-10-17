@@ -81,7 +81,7 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
 				
 				// Visit segment 
 				segArray = (JSONArray) next.accept(this, segArray);
-					
+				System.out.print(segArray);
 				// Update currPoint 
 				next = itr.next();
 				

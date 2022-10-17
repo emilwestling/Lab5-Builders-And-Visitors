@@ -107,9 +107,4 @@ public class PointNode implements ComponentNode
 		
 	}
 
-	@Override
-	public void unparse(StringBuilder sb, int level) {
-		// TODO Auto-generated method stub
-		
-	}
 }
