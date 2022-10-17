@@ -76,44 +76,44 @@ class JSONParserTest
     }
 	
 	 @Test
-	    void test_fully_connected_irregular_polygon() {
-	        JSONParser parser = new JSONParser();
-	        FigureNode figNode = (FigureNode) parser.parse(FileUtilities.readFileFilterComments("fully_connected_irregular_polygon.json"));
-	        PointNodeDatabase pointDB = figNode.getPointsDatabase();
-	        SegmentNodeDatabase segmentDB = figNode.getSegments();
-	        String description = figNode.getDescription();
+	 void test_fully_connected_irregular_polygon() {
+		 JSONParser parser = new JSONParser();
+		 FigureNode figNode = (FigureNode) parser.parse(FileUtilities.readFileFilterComments("fully_connected_irregular_polygon.json"));
+		 PointNodeDatabase pointDB = figNode.getPointsDatabase();
+		 SegmentNodeDatabase segmentDB = figNode.getSegments();
+		 String description = figNode.getDescription();
 
-	        // stores all the points
-	        PointNode a = new PointNode("A", 0,0);
-	        PointNode b = new PointNode("B", 4, 0);
-	        PointNode c = new PointNode("C", 6, 3);
-	        PointNode d = new PointNode("D", 3, 7);
-	        PointNode e = new PointNode("E", -2, 4);
-	        PointNode f = new PointNode("F", 26, 0);
-	        // check so that the description matches
-	        assertEquals(description, "Irregular pentagon in which each vertex is connected to each other.");
+		 // stores all the points
+		 PointNode a = new PointNode("A", 0,0);
+		 PointNode b = new PointNode("B", 4, 0);
+		 PointNode c = new PointNode("C", 6, 3);
+		 PointNode d = new PointNode("D", 3, 7);
+		 PointNode e = new PointNode("E", -2, 4);
+		 PointNode f = new PointNode("F", 26, 0);
+		 // check so that the description matches
+		 assertEquals(description, "Irregular pentagon in which each vertex is connected to each other.");
 
-	        // check so that all the points are in pointDB
-	        assertTrue(pointDB.contains(a));
-	        assertTrue(pointDB.contains(b));
-	        assertTrue(pointDB.contains(c));
-	        assertTrue(pointDB.contains(d));
-	        assertTrue(pointDB.contains(e));
-	        assertTrue(pointDB.contains(f));
+		 // check so that all the points are in pointDB
+		 assertTrue(pointDB.contains(a));
+		 assertTrue(pointDB.contains(b));
+		 assertTrue(pointDB.contains(c));
+		 assertTrue(pointDB.contains(d));
+		 assertTrue(pointDB.contains(e));
+		 assertTrue(pointDB.contains(f));
 
-	        // checking all segments
-	        ArrayList<SegmentNode> segmentList = (ArrayList<SegmentNode>) segmentDB.asUniqueSegmentList();
-	        assertTrue(segmentList.contains(new SegmentNode(a, b)));
-	        assertTrue(segmentList.contains(new SegmentNode(a, c)));
-	        assertTrue(segmentList.contains(new SegmentNode(a,d)));
-	        assertTrue(segmentList.contains(new SegmentNode(a,e)));
-	        assertTrue(segmentList.contains(new SegmentNode(b, c)));
-	        assertTrue(segmentList.contains(new SegmentNode(b,d)));
-	        assertTrue(segmentList.contains(new SegmentNode(b,e)));
-	        assertTrue(segmentList.contains(new SegmentNode(c, d)));
-	        assertTrue(segmentList.contains(new SegmentNode(c, e)));
-	        assertTrue(segmentList.contains(new SegmentNode(d, e)));
-	    }
+		 // checking all segments
+		 ArrayList<SegmentNode> segmentList = (ArrayList<SegmentNode>) segmentDB.asUniqueSegmentList();
+		 assertTrue(segmentList.contains(new SegmentNode(a, b)));
+		 assertTrue(segmentList.contains(new SegmentNode(a, c)));
+		 assertTrue(segmentList.contains(new SegmentNode(a,d)));
+		 assertTrue(segmentList.contains(new SegmentNode(a,e)));
+		 assertTrue(segmentList.contains(new SegmentNode(b, c)));
+		 assertTrue(segmentList.contains(new SegmentNode(b,d)));
+		 assertTrue(segmentList.contains(new SegmentNode(b,e)));
+		 assertTrue(segmentList.contains(new SegmentNode(c, d)));
+		 assertTrue(segmentList.contains(new SegmentNode(c, e)));
+		 assertTrue(segmentList.contains(new SegmentNode(d, e)));
+	 }
 	
 	
 }
