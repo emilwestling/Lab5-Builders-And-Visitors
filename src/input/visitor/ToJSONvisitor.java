@@ -81,7 +81,7 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
 			PointNode keyPoint = next.getPoint1();
 			
 			// Loop through all of the segments that have the same first point
-			while (currSegment.equals(keyPoint)) {
+			while (currSegment.equals(keyPoint) && itr.hasNext()) {
 				
 				// Visit segment 
 				segArray.put(next.getPoint2().getName());

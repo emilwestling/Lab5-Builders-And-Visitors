@@ -146,12 +146,12 @@ class JSONParserTest
 	@Test
     void test_crossing_symmetric_triangle_ToJSON() {
         JSONParser parser = new JSONParser();
-        String file = FileUtilities.readFileFilterComments("octagon.json");
+        String file = FileUtilities.readFileFilterComments("crossing_symmetric_triangle.json");
         FigureNode figNode = (FigureNode) parser.parse(file);
         ToJSONvisitor visitor = new ToJSONvisitor();
         
         JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
-		System.out.println(testToJSON.toString(2));
+		System.out.println(testToJSON.toString(6));
 
     }
 	
