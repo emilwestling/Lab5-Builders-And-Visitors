@@ -55,11 +55,10 @@ class JSONParserTest
         PointNodeDatabase pointDB = figNode.getPointsDatabase();
         SegmentNodeDatabase segmentDB = figNode.getSegments();
         String description = figNode.getDescription();
-        
         ToJSONvisitor visitor = new ToJSONvisitor();
         
-        JSONObject collinearObj = (JSONObject) figNode.accept(visitor, null);
-        System.out.print(collinearObj.toString(0));
+        JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
+		System.out.println(testToJSON.toString(6));
 
         // checking so that the description matches
         assertEquals(description, "A seqeunce of collinear line segments mimicking one line with 6 points.");
@@ -87,6 +86,11 @@ class JSONParserTest
 		 PointNodeDatabase pointDB = figNode.getPointsDatabase();
 		 SegmentNodeDatabase segmentDB = figNode.getSegments();
 		 String description = figNode.getDescription();
+		 
+		 ToJSONvisitor visitor = new ToJSONvisitor();
+	        
+	     
+		 
 
 		 // stores all the points
 		 PointNode a = new PointNode("A", 0,0);
@@ -118,6 +122,10 @@ class JSONParserTest
 		 assertTrue(segmentList.contains(new SegmentNode(c, d)));
 		 assertTrue(segmentList.contains(new SegmentNode(c, e)));
 		 assertTrue(segmentList.contains(new SegmentNode(d, e)));
+		 
+		 JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
+	     System.out.println(testToJSON.toString(5));
+		 
 	 }
 	
 	

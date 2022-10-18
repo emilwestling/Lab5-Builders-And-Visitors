@@ -37,16 +37,27 @@ public class SegmentNode implements ComponentNode
 		
 		SegmentNode that = (SegmentNode)obj;
 		
-		return (_point1.equals(that.getPoint1()) && _point2.equals(that.getPoint2())) || 
-			   (_point1.equals(that.getPoint2()) && _point2.equals(that.getPoint1())); 
+		return (_point1.equals(that.getPoint1()) && _point2.equals(that.getPoint2()));
 		
 		
 		
+	}
+	
+	@Override
+	public String toString() {
+		String p1 = _point1.getName();
+		String p2 = _point2.getName();
+		return "Segment " + p1 + " : " + p2;
 	}
 
 	@Override
 	public Object accept(ComponentNodeVisitor visitor, Object o) {
 		// TODO Auto-generated method stub
 		return visitor.visitSegmentNode(this, o);
+	}
+	@Override
+	public Object unparse(StringBuilder sb, int level) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

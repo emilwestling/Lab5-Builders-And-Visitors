@@ -89,10 +89,10 @@ public class SegmentNodeDatabase implements ComponentNode{
 			this.addDirectedEdge(n1, n2);
 		}
 		
-		if (_adjLists.containsKey(n2))  _adjLists.get(n2).add(n1);
-		else {
-			this.addDirectedEdge(n2, n1);
-		}
+		//if (_adjLists.containsKey(n2))  _adjLists.get(n2).add(n1);
+		//else {
+		//	this.addDirectedEdge(n2, n1);
+		//}
 
 	}
 
@@ -146,12 +146,13 @@ public class SegmentNodeDatabase implements ComponentNode{
 			while (itr.hasNext()) {
 				PointNode point = (PointNode)itr.next();
 				SegmentNode node = new SegmentNode(entry.getKey(), point);
-				
+				//System.out.println("Adding... : " + node.toString());
 				set.add(node);
+				//System.out.println("SET: " + set.toString());
 			}
 		}
 
-		ArrayList<SegmentNode> list = new ArrayList(set);
+		ArrayList<SegmentNode> list = new ArrayList<SegmentNode>(set);
 		return list;
 	}
 
