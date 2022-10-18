@@ -52,7 +52,12 @@ class JSONParserTest
 		AbstractMap.SimpleEntry<StringBuilder, Integer> pair = new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0);
 		
 		sb = (StringBuilder)uv.visitFigureNode((FigureNode)node, (Object) pair);
-		//System.out.println(sb.toString());
+		
+		System.out.println("\n" + "Unparse:" + "\n");
+		
+		System.out.println(sb.toString() + "\n");
+		
+	
 	}
 	
 	@Test
@@ -133,18 +138,20 @@ class JSONParserTest
 	
 	@Test
     void test_collinear_line_segments_ToJSON() {
+		System.out.println("ToJSON:" + "\n");
         JSONParser parser = new JSONParser();
         String file = FileUtilities.readFileFilterComments("collinear_line_segments.json");
         FigureNode figNode = (FigureNode) parser.parse(file);
         ToJSONvisitor visitor = new ToJSONvisitor();
         
         JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
-		System.out.println(testToJSON.toString(6));
+		System.out.println(testToJSON.toString(6) + "\n");
 
     }
 	
 	@Test
     void test_crossing_symmetric_triangle_ToJSON() {
+		System.out.println("ToJSON: "+ "\n");
         JSONParser parser = new JSONParser();
         String file = FileUtilities.readFileFilterComments("crossing_symmetric_triangle.json");
         FigureNode figNode = (FigureNode) parser.parse(file);
