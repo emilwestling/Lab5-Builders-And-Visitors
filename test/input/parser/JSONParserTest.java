@@ -3,6 +3,7 @@ package input.parser;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import utilities.io.FileUtilities;
 import org.json.JSONObject;
@@ -16,6 +17,7 @@ import input.components.segment.SegmentNode;
 import input.components.segment.SegmentNodeDatabase;
 import input.exception.ParseException;
 import input.visitor.ToJSONvisitor;
+import input.visitor.UnparseVisitor;
 
 class JSONParserTest
 {
@@ -44,7 +46,13 @@ class JSONParserTest
 		assertTrue(node instanceof FigureNode);
 		
 		StringBuilder sb = new StringBuilder();
-		node.unparse(sb, 0);
+
+		UnparseVisitor uv = new UnparseVisitor();
+		
+		AbstractMap.SimpleEntry<StringBuilder, Integer> pair = new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0);
+		
+		sb = (StringBuilder)uv.visitFigureNode((FigureNode)node, (Object) pair);
+		System.out.println(sb.toString());
 	}
 	
 	@Test

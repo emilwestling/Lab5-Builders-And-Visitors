@@ -49,4 +49,9 @@ public class SegmentNode implements ComponentNode
 		// TODO Auto-generated method stub
 		return visitor.visitSegmentNode(this, o);
 	}
+	@Override
+	public Object unparse(StringBuilder sb, int level) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
