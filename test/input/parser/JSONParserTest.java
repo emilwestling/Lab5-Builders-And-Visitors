@@ -52,7 +52,7 @@ class JSONParserTest
 		AbstractMap.SimpleEntry<StringBuilder, Integer> pair = new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0);
 		
 		sb = (StringBuilder)uv.visitFigureNode((FigureNode)node, (Object) pair);
-		System.out.println(sb.toString());
+		//System.out.println(sb.toString());
 	}
 	
 	@Test
@@ -63,10 +63,6 @@ class JSONParserTest
         PointNodeDatabase pointDB = figNode.getPointsDatabase();
         SegmentNodeDatabase segmentDB = figNode.getSegments();
         String description = figNode.getDescription();
-        ToJSONvisitor visitor = new ToJSONvisitor();
-        
-        JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
-		System.out.println(testToJSON.toString(6));
 
         // checking so that the description matches
         assertEquals(description, "A seqeunce of collinear line segments mimicking one line with 6 points.");
@@ -109,7 +105,10 @@ class JSONParserTest
 		 PointNode f = new PointNode("F", 26, 0);
 		 // check so that the description matches
 		 assertEquals(description, "Irregular pentagon in which each vertex is connected to each other.");
-
+		 
+		 JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
+	     System.out.println(testToJSON.toString(5));
+	     
 		 // check so that all the points are in pointDB
 		 assertTrue(pointDB.contains(a));
 		 assertTrue(pointDB.contains(b));
@@ -131,10 +130,23 @@ class JSONParserTest
 		 assertTrue(segmentList.contains(new SegmentNode(c, e)));
 		 assertTrue(segmentList.contains(new SegmentNode(d, e)));
 		 
-		 JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
-	     System.out.println(testToJSON.toString(5));
+		 
 		 
 	 }
 	
+	 @Test
+	    void test_collinear_line_segments_ToJSON() {
+	        JSONParser parser = new JSONParser();
+	        String file = FileUtilities.readFileFilterComments("collinear_line_segments.json");
+	        FigureNode figNode = (FigureNode) parser.parse(file);
+	        PointNodeDatabase pointDB = figNode.getPointsDatabase();
+	        SegmentNodeDatabase segmentDB = figNode.getSegments();
+	        String description = figNode.getDescription();
+	        ToJSONvisitor visitor = new ToJSONvisitor();
+	        
+	        JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
+			System.out.println(testToJSON.toString(6));
+
+	    }
 	
 }

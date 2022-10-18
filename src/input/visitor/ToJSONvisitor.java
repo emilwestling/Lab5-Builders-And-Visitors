@@ -21,7 +21,9 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
 		JSONObject figure = new JSONObject();
 		JSONObject geometryJSON = new JSONObject();
 		
-		
+		// Add the description to the figure
+		String description = node.getDescription();
+		figure.put("Description", description);
 		
 		// Get the SegmentNodeDatabase from the FigureNode
 		SegmentNodeDatabase segmentDB = node.getSegments();
@@ -40,9 +42,6 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
 		
 		// Add the points array to the figure
 		figure.put("Points", pointsArray);
-		
-		// Add the description to the figure
-		figure.put("Description", node.getDescription());
 		
 		// Add the entire figure to the geometryJSON object and return 
 		geometryJSON.put("Figure", figure);
@@ -85,7 +84,6 @@ public class ToJSONvisitor implements ComponentNodeVisitor {
 			while (currSegment.equals(keyPoint)) {
 				
 				// Visit segment 
-				//segArray = (JSONArray) next.accept(this, segArray);
 				segArray.put(next.getPoint2().getName());
 				
 				//System.out.println("Point: " + currSegment.getName() + " : " + segArray);
