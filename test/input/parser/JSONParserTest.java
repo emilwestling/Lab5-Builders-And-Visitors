@@ -105,9 +105,6 @@ class JSONParserTest
 		 PointNode f = new PointNode("F", 26, 0);
 		 // check so that the description matches
 		 assertEquals(description, "Irregular pentagon in which each vertex is connected to each other.");
-		 
-		 JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
-	     System.out.println(testToJSON.toString(5));
 	     
 		 // check so that all the points are in pointDB
 		 assertTrue(pointDB.contains(a));
@@ -134,19 +131,28 @@ class JSONParserTest
 		 
 	 }
 	
-	 @Test
-	    void test_collinear_line_segments_ToJSON() {
-	        JSONParser parser = new JSONParser();
-	        String file = FileUtilities.readFileFilterComments("collinear_line_segments.json");
-	        FigureNode figNode = (FigureNode) parser.parse(file);
-	        PointNodeDatabase pointDB = figNode.getPointsDatabase();
-	        SegmentNodeDatabase segmentDB = figNode.getSegments();
-	        String description = figNode.getDescription();
-	        ToJSONvisitor visitor = new ToJSONvisitor();
-	        
-	        JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
-			System.out.println(testToJSON.toString(6));
+	@Test
+    void test_collinear_line_segments_ToJSON() {
+        JSONParser parser = new JSONParser();
+        String file = FileUtilities.readFileFilterComments("collinear_line_segments.json");
+        FigureNode figNode = (FigureNode) parser.parse(file);
+        ToJSONvisitor visitor = new ToJSONvisitor();
+        
+        JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
+		System.out.println(testToJSON.toString(6));
 
-	    }
+    }
+	
+	@Test
+    void test_crossing_symmetric_triangle_ToJSON() {
+        JSONParser parser = new JSONParser();
+        String file = FileUtilities.readFileFilterComments("octagon.json");
+        FigureNode figNode = (FigureNode) parser.parse(file);
+        ToJSONvisitor visitor = new ToJSONvisitor();
+        
+        JSONObject testToJSON = (JSONObject) figNode.accept(visitor, null);
+		System.out.println(testToJSON.toString(2));
+
+    }
 	
 }
