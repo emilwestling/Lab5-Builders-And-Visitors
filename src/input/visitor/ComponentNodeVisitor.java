@@ -12,6 +12,7 @@ import input.components.segment.SegmentNodeDatabase;
 //       Points
 //       Segments
 //
+
 public interface ComponentNodeVisitor
 {
 	Object visitFigureNode(FigureNode node, Object o);
